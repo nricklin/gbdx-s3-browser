@@ -36,6 +36,12 @@ class Heartbeat(object):
         cookie['bucket']['version'] = 1
 
         cookie = cherrypy.response.cookie
+        cookie['username'] = username
+        cookie['username']['path'] = '/'
+        cookie['username']['max-age'] = 36000
+        cookie['username']['version'] = 1
+
+        cookie = cherrypy.response.cookie
         cookie['prefix'] = r.json()['prefix']
         cookie['prefix']['path'] = '/'
         cookie['prefix']['max-age'] = 36000

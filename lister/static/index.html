@@ -108,6 +108,7 @@ $(function() {
              Cookies.remove('S3_access_key');
              Cookies.remove('S3_secret_key');
              Cookies.remove('S3_session_token');
+             Cookies.remove('username');
              window.location.href = '/login.html';
            }
       );
@@ -147,6 +148,7 @@ $(function() {
       //  'Loaded ' + data.Contents.length + ' files and '+ data.CommonPrefixes.length + ' folders from S3<br>';
 
       document.getElementById('breadcrumb').innerHTML += full_s3_path;
+      document.getElementById('logoutbutton').innerHTML += ": " + Cookies.get('username');
 
       var subprefix_array = subprefix.split('/');
       subprefix_array.pop();
