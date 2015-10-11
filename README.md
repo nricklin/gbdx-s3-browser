@@ -41,3 +41,4 @@ TODO:
 - Make it work in Safari
 - Display user information up top
 - Enable upload
+- Make the sort order work properly
