@@ -1,0 +1,189 @@
+<html>
+<head>
+</head>
+<body>
+  <div id="listing"></div>
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.2.9.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="js.cookie.js"></script>
+<link rel="stylesheet" href="http://demo.idleberg.com/Bootstrap-Listr-2/assets/css/listr.pack.css" />
+<script type="text/javascript">
+  // See the Configuring section to configure credentials in the SDK
+  AWS.config.update({
+  	accessKeyId: Cookies.get('S3_access_key'), 
+  	secretAccessKey: Cookies.get('S3_secret_key'), 
+  	sessionToken: Cookies.get('S3_session_token')});
+
+  // Configure your region
+  AWS.config.region = 'us-east-1';
+
+
+  var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+};
+
+function humanFileSize(bytes, si) {
+    var thresh = si ? 1000 : 1024;
+    if(Math.abs(bytes) < thresh) {
+        return bytes + ' B';
+    }
+    var units = si
+        ? ['kB','MB','GB','TB','PB','EB','ZB','YB']
+        : ['KiB','MiB','GiB','TiB','PiB','EiB','ZiB','YiB'];
+    var u = -1;
+    do {
+        bytes /= thresh;
+        ++u;
+    } while(Math.abs(bytes) >= thresh && u < units.length - 1);
+    return bytes.toFixed(1)+' '+units[u];
+}
+
+var getTableHtml = function getTableHtml(num, icon, name, href, size, date, onclick) {
+
+	ret = '';
+	ret += '<tr>';
+	ret += '<td class="text-muted text-right" data-sort-value="'+num+'">'+num+'</td>';
+	ret += '<td class="text-left" data-sort-value="'+ name + '"><i class="fa ' + icon + ' fa-fw"></i>&nbsp;<a href="'+ href + '" onClick="'+ onclick + '"><strong>'+ name + '</strong></a></td>'
+	ret += '<td class="text-right" data-sort-value="'+ size + '">'+ size + '</td>';
+	ret += '<td class="text-right" data-sort-value="'+ date + '" title="'+ date + '">'+ date + '</td></tr>'
+
+	return ret
+};
+</script>
+
+
+<div id="status"></div>
+<ul id="objects"></ul>
+
+
+<div class="table-responsive" style="padding: 100px;">
+	<ol class="breadcrumb" dir="ltr">
+      <li><a href="?prefix="><i class="fa fa-home fa-lg fa-fw"></i> </a></li>
+      <li id="breadcrumb">  </li>
+      <a id="logoutbutton" href="#" class="pull-right btn btn-xs btn-danger"><span class="fa fa-user"></span> Logout</a>
+    </ol>
+      <table id="bs-table" class="table table-hover" style="padding: 100px;">
+        <thead>
+          <tr>
+            <th class="text-right" data-sort="int">#</th>
+            <th class="col-sm-6 text-left" data-sort="string">Name</th>
+            <th class="col-sm-2 text-right" data-sort="int">Size</th>
+            <th class="col-sm-4 text-right" data-sort="int">Modified</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <td colspan="4">
+              <small class="pull-left text-muted" dir="ltr">GBDX.</small>
+              <a class="pull-right small text-muted" href="https://github.com/tdg-platform/s3browser" title="GBDX S3 Browser on GitHub" target="_blank">Fork me on GitHub</a>
+            </td>
+          </tr>
+        </tfoot>
+        <tbody id="tbody">
+        </tbody>
+
+    </table>
+</div>
+
+
+
+
+<script type="text/javascript">
+$(function() {
+      $("#logoutbutton").click( function()
+           {
+             Cookies.remove('prefix');
+             Cookies.remove('bucket');
+             Cookies.remove('S3_access_key');
+             Cookies.remove('S3_secret_key');
+             Cookies.remove('S3_session_token');
+             window.location.href = '/login.html';
+           }
+      );
+});
+
+
+  var superprefix = Cookies.get('prefix') + '/';
+  var bucketName = Cookies.get('bucket');
+  var subprefix = getUrlParameter('prefix');
+  if (subprefix == undefined) { subprefix = '' };
+  var full_s3_path = 's3://'+bucketName+'/'+superprefix + subprefix;
+
+  var bucket = new AWS.S3({params: {
+  	Bucket: bucketName, 
+  	Prefix: superprefix + subprefix,
+  	Delimiter: '/'
+    }
+  });
+
+  function downloadFile(key) {
+    var params = {Bucket: bucketName, Key: key, Expires: 600};
+	var url = bucket.getSignedUrl('getObject', params);
+	window.location.href = url;
+  }
+
+
+  // strip the superprefix
+  bucket.listObjects(function (err, data) {
+    if (err) {
+      document.getElementById('status').innerHTML =
+        'Could not load objects from S3';
+        window.location.href = '/login.html';
+    } else {
+      //document.getElementById('status').innerHTML =
+      //  'Listing S3 location: <b>'+full_s3_path + '</b><br>';
+      //document.getElementById('status').innerHTML +=
+      //  'Loaded ' + data.Contents.length + ' files and '+ data.CommonPrefixes.length + ' folders from S3<br>';
+
+      document.getElementById('breadcrumb').innerHTML += full_s3_path;
+
+      var subprefix_array = subprefix.split('/');
+      subprefix_array.pop();
+      subprefix_array.pop();
+      var backward_subprefix = subprefix_array.join('/') + '/';
+      if (backward_subprefix == '/') { backward_subprefix = '' };
+
+      document.getElementById('tbody').innerHTML += getTableHtml(1, 'fa-folder', './', '?prefix='+subprefix, '&mdash;','&mdash;', '');
+      document.getElementById('tbody').innerHTML += getTableHtml('2', 'fa-folder', '../', '?prefix='+backward_subprefix, '&mdash;','&mdash;', '');
+
+ 	
+ 	  var row = 3;
+      for (var i = 0; i < data.Contents.length; i++) {
+      	// skip the superprefix+subprefix we are currently viewing 
+      	if (superprefix+subprefix == data.Contents[i].Key) {continue;}
+        //document.getElementById('objects').innerHTML +=
+        var obj = data.Contents[i].Key.replace(superprefix+subprefix, "");
+        var date = data.Contents[i].LastModified;
+        var size = humanFileSize( data.Contents[i].Size , true);
+        var onclick = "downloadFile(" + "'" + superprefix+subprefix+obj + "'" + ")";
+        document.getElementById('tbody').innerHTML += getTableHtml(row, 'fa-picture-o', obj, '#', size ,date, onclick);
+        row++;
+      }
+      for (var i = 0; i < data.CommonPrefixes.length; i++) {
+      	var obj = data.CommonPrefixes[i].Prefix.replace(superprefix+subprefix, "");
+
+      	if ( obj.endsWith('/') ) {
+      		document.getElementById('tbody').innerHTML += getTableHtml(row, 'fa-folder', obj, '?prefix='+subprefix + obj, '&mdash;','&mdash;', '');
+      		row++;
+      	} else {
+      		// generate a link to download the file
+      	}
+
+        
+      }
+    }
+  });
+</script>
+<script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="nzeq1welehd2rug"></script>
+  <script type="text/javascript" src="http://demo.idleberg.com/Bootstrap-Listr-2/assets/js/listr.pack.js"></script>

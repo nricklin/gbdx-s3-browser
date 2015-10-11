@@ -1,0 +1,4 @@
+cherrypy>=3.5.0
+requests>=2.5.1
+simpleflake>=0.1.5
+Routes==2.1
