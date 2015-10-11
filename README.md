@@ -1,6 +1,8 @@
 # gbdx-s3-browser
 Simple web GUI for browsing/downloading S3 attached to a GBDX account
 
+![Screenshot](example.png?raw=true "Screenshot")
+
 Run Locally (without Docker):
 --------
 ```bash
@@ -42,3 +44,5 @@ TODO:
 - Display user information up top
 - Enable upload
 - Make the sort order work properly
+- Verify everything works when there are more than 1000 keys in a folder
+- Pull all javascript and css local
