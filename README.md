@@ -23,6 +23,7 @@ python application.py
 ```
 
 Run as a Docker container:
+-------
 ```bash
 # Clone the repo and cd inside:
 git clone https://github.com/nricklin/gbdx-s3-browser
