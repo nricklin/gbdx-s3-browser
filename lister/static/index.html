@@ -49,13 +49,13 @@ function humanFileSize(bytes, si) {
     return bytes.toFixed(1)+' '+units[u];
 }
 
-var getTableHtml = function getTableHtml(num, icon, name, href, size, date, onclick) {
+var getTableHtml = function getTableHtml(num, icon, name, href, size, sizesort, date, onclick) {
 
 	ret = '';
 	ret += '<tr>';
 	ret += '<td class="text-muted text-right" data-sort-value="'+num+'">'+num+'</td>';
 	ret += '<td class="text-left" data-sort-value="'+ name + '"><i class="fa ' + icon + ' fa-fw"></i>&nbsp;<a href="'+ href + '" onClick="'+ onclick + '"><strong>'+ name + '</strong></a></td>'
-	ret += '<td class="text-right" data-sort-value="'+ size + '">'+ size + '</td>';
+	ret += '<td class="text-right" data-sort-value="'+ sizesort + '">'+ size + '</td>';
 	ret += '<td class="text-right" data-sort-value="'+ date + '" title="'+ date + '">'+ date + '</td></tr>'
 
 	return ret
@@ -156,8 +156,8 @@ $(function() {
       var backward_subprefix = subprefix_array.join('/') + '/';
       if (backward_subprefix == '/') { backward_subprefix = '' };
 
-      document.getElementById('tbody').innerHTML += getTableHtml(1, 'fa-folder', './', '?prefix='+subprefix, '&mdash;','&mdash;', '');
-      document.getElementById('tbody').innerHTML += getTableHtml('2', 'fa-folder', '../', '?prefix='+backward_subprefix, '&mdash;','&mdash;', '');
+      document.getElementById('tbody').innerHTML += getTableHtml(1, 'fa-folder', './', '?prefix='+subprefix, '&mdash;',0,'&mdash;', '');
+      document.getElementById('tbody').innerHTML += getTableHtml('2', 'fa-folder', '../', '?prefix='+backward_subprefix, '&mdash;',0,'&mdash;', '');
 
  	
  	  var row = 3;
@@ -169,14 +169,14 @@ $(function() {
         var date = data.Contents[i].LastModified;
         var size = humanFileSize( data.Contents[i].Size , true);
         var onclick = "downloadFile(" + "'" + superprefix+subprefix+obj + "'" + ")";
-        document.getElementById('tbody').innerHTML += getTableHtml(row, 'fa-picture-o', obj, '#', size ,date, onclick);
+        document.getElementById('tbody').innerHTML += getTableHtml(row, 'fa-picture-o', obj, '#', size , data.Contents[i].Size, date, onclick);
         row++;
       }
       for (var i = 0; i < data.CommonPrefixes.length; i++) {
       	var obj = data.CommonPrefixes[i].Prefix.replace(superprefix+subprefix, "");
 
       	if ( obj.endsWith('/') ) {
-      		document.getElementById('tbody').innerHTML += getTableHtml(row, 'fa-folder', obj, '?prefix='+subprefix + obj, '&mdash;','&mdash;', '');
+      		document.getElementById('tbody').innerHTML += getTableHtml(row, 'fa-folder', obj, '?prefix='+subprefix + obj, '&mdash;',1,'&mdash;', '');
       		row++;
       	} else {
       		// generate a link to download the file
