@@ -21,3 +21,16 @@ export S3CREDS_URL=https://geobigdata.io/s3creds/v1/prefix
 # run the application
 python application.py
 ```
+
+Run as a Docker container:
+```bash
+# Clone the repo and cd inside:
+git clone https://github.com/nricklin/gbdx-s3-browser
+cd gbdx-s3-browser
+
+# build the Docker image
+sudo docker build -t gbdx-s3-browser .
+
+# Run the docker image:
+sudo docker run -e GBDX_API_KEY=<YOUR_GBDX_API_KEY> -p 80:8080 gbdx-s3-browser
+```
