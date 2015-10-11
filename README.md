@@ -44,3 +44,4 @@ TODO:
 - Display user information up top
 - Enable upload
 - Make the sort order work properly
+- Verify everything works when there are more than 1000 keys in a folder
