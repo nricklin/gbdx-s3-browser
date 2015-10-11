@@ -41,7 +41,7 @@ sudo docker run -e GBDX_API_KEY=<YOUR_GBDX_API_KEY> -p 80:8080 gbdx-s3-browser
 TODO:
 ----
 - Make it work in Safari
-- Display user information up top
+- ~~Display user information up top~~
 - Enable upload
 - Make the sort order work properly
 - Verify everything works when there are more than 1000 keys in a folder
