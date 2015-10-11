@@ -6,6 +6,7 @@
 <script src="aws-sdk-2.2.9.min.js"></script>
 <script src="jquery.min.js"></script>
 <script src="js.cookie.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
 <link rel="stylesheet" href="listr.pack.css" />
 <script type="text/javascript">
   // See the Configuring section to configure credentials in the SDK
@@ -168,6 +169,7 @@ $(function() {
         var obj = data.Contents[i].Key.replace(superprefix+subprefix, "");
         var date = data.Contents[i].LastModified;
         var datenum = Date.parse(date);
+        date = moment(date).format('MMMM Do YYYY, h:mm:ss a');
         var size = humanFileSize( data.Contents[i].Size , true);
         var onclick = "downloadFile(" + "'" + superprefix+subprefix+obj + "'" + ")";
         document.getElementById('tbody').innerHTML += getTableHtml(row, 'fa-picture-o', obj, '#', size , data.Contents[i].Size, date,datenum, onclick);
