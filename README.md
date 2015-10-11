@@ -35,3 +35,9 @@ sudo docker build -t gbdx-s3-browser .
 # Run the docker image:
 sudo docker run -e GBDX_API_KEY=<YOUR_GBDX_API_KEY> -p 80:8080 gbdx-s3-browser
 ```
+
+TODO:
+----
+- Make it work in Safari
+- Display user information up top
+- Enable upload
