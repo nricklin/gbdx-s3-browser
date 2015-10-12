@@ -1,5 +1,5 @@
 # gbdx-s3-browser
-Simple web GUI for browsing/downloading S3 attached to a GBDX account
+Simple web GUI for browsing/downloading S3 attached to a GBDX account.  Relies on the AWS javascript SDK (http://docs.aws.amazon.com/AWSJavaScriptSDK/guide/browser-examples.html)
 
 ![Screenshot](example.png?raw=true "Screenshot")
 
