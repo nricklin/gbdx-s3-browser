@@ -1,11 +1,13 @@
 <html>
 <head>
+   <link rel="stylesheet" href="bootstrap.min.css">
 </head>
 <body>
   <div id="listing"></div>
 <script src="aws-sdk-2.2.9.min.js"></script>
 <script src="jquery.min.js"></script>
 <script src="js.cookie.js"></script>
+<script src="jquery.autoGrowInput.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
 <link rel="stylesheet" href="listr.pack.css" />
 <script type="text/javascript">
@@ -67,11 +69,13 @@ var getTableHtml = function getTableHtml(num, icon, name, href, size, sizesort, 
 <div id="status"></div>
 <ul id="objects"></ul>
 
-
 <div class="table-responsive" style="padding: 100px;">
 	<ol class="breadcrumb" dir="ltr">
       <li><a href="?prefix="><i class="fa fa-home fa-lg fa-fw"></i> </a></li>
       <li id="breadcrumb">  </li>
+      <a id="add" href="#"><i id="plusbutton" class="fa fa-plus fa-lg fa-fw"></i>
+        <i><input class="autogrow" id="newfolder" size="2" style="display: none;" type="text"></i>
+        </a>
       <a id="logoutbutton" href="#" class="pull-right btn btn-xs btn-danger"><span class="fa fa-user"></span> Logout</a>
     </ol>
       <table id="bs-table" class="table table-hover" style="padding: 100px;">
@@ -192,3 +196,47 @@ $(function() {
 </script>
 <script type="text/javascript" src="dropins.js" id="dropboxjs" data-app-key="nzeq1welehd2rug"></script>
   <script type="text/javascript" src="listr.pack.js"></script>
+
+
+<!--
+
+  <input type="file" id="file-chooser" /> 
+<button id="upload-button">Upload to S3</button>
+<div id="results"></div>
+<div class="progress">
+  <div id="asdf" class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+    <span class="sr-only">60% Complete (warning)</span>
+  </div>
+</div>
+
+<script type="text/javascript">
+  
+
+  var fileChooser = document.getElementById('file-chooser');
+  var button = document.getElementById('upload-button');
+  var results = document.getElementById('results');
+  button.addEventListener('click', function() {
+    var file = fileChooser.files[0];
+    if (file) {
+      results.innerHTML = '';
+
+      var params = {Key: superprefix + subprefix + file.name, ContentType: file.type, Body: file};
+      bucket.upload(params, function (err, data) {
+        results.innerHTML = err ? 'ERROR!' : 'UPLOADED.';
+      }).on('httpUploadProgress', function (progress) {
+          console.log(progress);
+          var percent = progress.loaded / progress.total;
+          $('#asdf').css('width', percent+'%').attr('aria-valuenow', percent);
+
+      });
+    } else {
+      results.innerHTML = 'Nothing to upload.';
+    }
+  }, false);
+</script>
+  </script>
+
+-->
+
+    <script type="text/javascript" src="create_folder.js"></script>
+
