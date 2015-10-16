@@ -33,8 +33,8 @@ $("#newfolder").keypress(function(e) {
         var params = {Key: key_to_create, Body: ' '};
         bucket.upload(params, function (err, data) {
             console.debug('folder created');
-            // now refresh page
-            window.location.href = window.location.href.replace(/#+/g, '') + folder;
+            // now refresh page            
+            window.location.href = "/?prefix=" + superprefix + subprefix + folder;
         });
         
         return false;
