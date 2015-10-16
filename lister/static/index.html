@@ -56,7 +56,8 @@ var getTableHtml = function getTableHtml(num, icon, name, href, size, sizesort, 
 
 	ret = '';
 	ret += '<tr>';
-	ret += '<td class="text-muted text-right" data-sort-value="'+num+'">'+num+'</td>';
+  ret += '<td>  <i><input type="checkbox" name="delete" value="'+ name + '"></i> </td>';
+  ret += '<td class="text-muted text-right" data-sort-value="'+num+'">'+num+'</td>';
 	ret += '<td class="text-left" data-sort-value="'+ name + '"><i class="fa ' + icon + ' fa-fw"></i>&nbsp;<a href="'+ href + '" onClick="'+ onclick + '"><strong>'+ name + '</strong></a></td>'
 	ret += '<td class="text-right" data-sort-value="'+ sizesort + '">'+ size + '</td>';
 	ret += '<td class="text-right" data-sort-value="'+ datesort + '" title="'+ date + '">'+ date + '</td></tr>'
@@ -81,6 +82,7 @@ var getTableHtml = function getTableHtml(num, icon, name, href, size, sizesort, 
       <table id="bs-table" class="table table-hover" style="padding: 100px;">
         <thead>
           <tr>
+            <th><a id="deleteselected" href="#"><i class="fa fa-remove fa-lg fa-fw"></i></a></th>
             <th class="text-right" data-sort="int">#</th>
             <th class="col-sm-6 text-left" data-sort="string">Name</th>
             <th class="col-sm-2 text-right" data-sort="int">Size</th>
@@ -239,4 +241,6 @@ $(function() {
 -->
 
     <script type="text/javascript" src="create_folder.js"></script>
+    <script type="text/javascript" src="delete_keys.js"></script>
+    <script type="text/javascript" src="bootbox.min.js"></script>
 
