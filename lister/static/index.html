@@ -9,6 +9,7 @@
 <script src="js.cookie.js"></script>
 <script src="jquery.autoGrowInput.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+<link rel="stylesheet" href="upload.css" />
 <link rel="stylesheet" href="listr.pack.css" />
 <script type="text/javascript" src="listr.pack.js"></script>
 <script type="text/javascript">
@@ -105,11 +106,7 @@ var getTableHtml = function getTableHtml(num, icon, name, href, size, sizesort, 
 
 <div class="col-md-6">
           <!-- D&D Zone-->
-          <div id="drag-and-drop-zone" class="uploader">
-            <input type="file" id="file-chooser" /> 
-            <button id="upload-button">Upload to S3</button>
-            <div id="results"></div>
-          </div>
+          
           <!-- /D&D Zone -->
 
        
@@ -118,7 +115,10 @@ var getTableHtml = function getTableHtml(num, icon, name, href, size, sizesort, 
         <div class="col-md-6">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title">Uploads</h3>
+              <h3 class="panel-title"></h3>
+              <span class="file-input btn btn-primary btn-file">
+                Upload&hellip; <input type="file" multiple>
+            </span>
             </div>
             <div class="panel-body demo-panel-files" id="demo-files">
               <div id="upload_progress_container">
