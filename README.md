@@ -42,7 +42,7 @@ TODO:
 ----
 - Make it work in Safari
 - ~~Display user information up top~~
-- Enable upload
+- ~~Enable upload~~
 - ~~Enable folder creation~~
 - ~~Make the sort order work properly~~
 - Verify everything works when there are more than 1000 keys in a folder
