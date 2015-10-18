@@ -10,6 +10,7 @@
 <script src="jquery.autoGrowInput.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
 <link rel="stylesheet" href="listr.pack.css" />
+<script type="text/javascript" src="listr.pack.js"></script>
 <script type="text/javascript">
   // See the Configuring section to configure credentials in the SDK
   AWS.config.update({
@@ -101,6 +102,35 @@ var getTableHtml = function getTableHtml(num, icon, name, href, size, sizesort, 
         </tbody>
 
     </table>
+
+<div class="col-md-6">
+          <!-- D&D Zone-->
+          <div id="drag-and-drop-zone" class="uploader">
+            <input type="file" id="file-chooser" /> 
+            <button id="upload-button">Upload to S3</button>
+            <div id="results"></div>
+          </div>
+          <!-- /D&D Zone -->
+
+       
+        </div>
+
+        <div class="col-md-6">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Uploads</h3>
+            </div>
+            <div class="panel-body demo-panel-files" id="demo-files">
+              <div id="upload_progress_container">
+                
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+    
+
 </div>
 
 
@@ -196,51 +226,21 @@ $(function() {
     }
   });
 </script>
-<script type="text/javascript" src="dropins.js" id="dropboxjs" data-app-key="nzeq1welehd2rug"></script>
-  <script type="text/javascript" src="listr.pack.js"></script>
 
-
-<!--
-
-  <input type="file" id="file-chooser" /> 
-<button id="upload-button">Upload to S3</button>
-<div id="results"></div>
-<div class="progress">
-  <div id="asdf" class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-    <span class="sr-only">60% Complete (warning)</span>
-  </div>
-</div>
-
-<script type="text/javascript">
+<!--<script type="text/javascript" src="dropins.js" id="dropboxjs" data-app-key="nzeq1welehd2rug"></script>-->
   
 
-  var fileChooser = document.getElementById('file-chooser');
-  var button = document.getElementById('upload-button');
-  var results = document.getElementById('results');
-  button.addEventListener('click', function() {
-    var file = fileChooser.files[0];
-    if (file) {
-      results.innerHTML = '';
 
-      var params = {Key: superprefix + subprefix + file.name, ContentType: file.type, Body: file};
-      bucket.upload(params, function (err, data) {
-        results.innerHTML = err ? 'ERROR!' : 'UPLOADED.';
-      }).on('httpUploadProgress', function (progress) {
-          console.log(progress);
-          var percent = progress.loaded / progress.total;
-          $('#asdf').css('width', percent+'%').attr('aria-valuenow', percent);
 
-      });
-    } else {
-      results.innerHTML = 'Nothing to upload.';
-    }
-  }, false);
-</script>
-  </script>
 
--->
+
+
+
+
+
 
     <script type="text/javascript" src="create_folder.js"></script>
     <script type="text/javascript" src="delete_keys.js"></script>
     <script type="text/javascript" src="bootbox.min.js"></script>
+    <script type="text/javascript" src="upload.js"></script>
 
