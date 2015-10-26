@@ -34,7 +34,7 @@ $("#newfolder").keypress(function(e) {
         bucket.upload(params, function (err, data) {
             console.debug('folder created');
             // now refresh page            
-            window.location.href = "/?prefix=" + superprefix + subprefix + folder;
+            window.location.href = "/?prefix=" + subprefix + folder;
         });
         
         return false;
