@@ -4,6 +4,7 @@ Simple web GUI for browsing/downloading S3 attached to a GBDX account.  Relies o
 ![Screenshot](example.png?raw=true "Screenshot")
 
 Run from Dockerhub:
+--------
 ```bash
 sudo docker run -e GBDX_API_KEY=YOUR_GBDX_API_KEY -p 80:8080 nricklin/gbdx-s3-browser
 ```
