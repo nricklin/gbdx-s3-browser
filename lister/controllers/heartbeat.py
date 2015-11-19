@@ -14,7 +14,7 @@ S3CREDS_URL = os.getenv('S3CREDS_URL', 'https://geobigdata.io/s3creds/v1/prefix'
 class Heartbeat(object):
     
     # POST /login
-    @cherrypy.tools.json_out()
+    #@cherrypy.tools.json_out()
     def login(self, username, password):
         # cherrypy.request.json
         # Get user token
@@ -65,7 +65,14 @@ class Heartbeat(object):
         cookie['S3_session_token']['max-age'] = 36000
         cookie['S3_session_token']['version'] = 1
 
-        raise cherrypy.HTTPRedirect(cherrypy.url().rsplit('/',2)[0] + '/', 302)
+        return """<html>
+                  <script type="text/javascript">
+                  window.location.href = "../";
+                  </script>
+                  If you are not redirected, click <a href="../">here.</a>
+                  </html>"""
+
+        #raise cherrypy.HTTPRedirect(cherrypy.url().rsplit('/',2)[0] + '/', 302)
 
 
     
