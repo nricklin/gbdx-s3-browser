@@ -1,17 +1,17 @@
 <html>
 <head>
-   <link rel="stylesheet" href="bootstrap.min.css">
+   <link rel="stylesheet" href="./bootstrap.min.css">
 </head>
 <body>
   <div id="listing"></div>
-<script src="aws-sdk-2.2.9.min.js"></script>
-<script src="jquery.min.js"></script>
-<script src="js.cookie.js"></script>
-<script src="jquery.autoGrowInput.js"></script>
+<script src="./aws-sdk-2.2.9.min.js"></script>
+<script src="./jquery.min.js"></script>
+<script src="./js.cookie.js"></script>
+<script src="./jquery.autoGrowInput.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
-<link rel="stylesheet" href="upload.css" />
-<link rel="stylesheet" href="listr.pack.css" />
-<script type="text/javascript" src="listr.pack.js"></script>
+<link rel="stylesheet" href="./upload.css" />
+<link rel="stylesheet" href="./listr.pack.css" />
+<script type="text/javascript" src="./listr.pack.js"></script>
 <script type="text/javascript">
   // See the Configuring section to configure credentials in the SDK
   AWS.config.update({
@@ -177,7 +177,7 @@ $(function() {
     if (err) {
       document.getElementById('status').innerHTML =
         'Could not load objects from S3';
-        window.location.href = '/login.html';
+        window.location.href = './login.html';
     } else {
       //document.getElementById('status').innerHTML =
       //  'Listing S3 location: <b>'+full_s3_path + '</b><br>';
@@ -239,8 +239,8 @@ $(function() {
 
 
 
-    <script type="text/javascript" src="create_folder.js"></script>
-    <script type="text/javascript" src="delete_keys.js"></script>
-    <script type="text/javascript" src="bootbox.min.js"></script>
-    <script type="text/javascript" src="upload.js"></script>
+    <script type="text/javascript" src="./create_folder.js"></script>
+    <script type="text/javascript" src="./delete_keys.js"></script>
+    <script type="text/javascript" src="./bootbox.min.js"></script>
+    <script type="text/javascript" src="./upload.js"></script>
 
