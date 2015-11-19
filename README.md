@@ -55,4 +55,4 @@ TODO:
 - ~~Pull all javascript and css local~~
 - bad password (or other error) returns 500.   It should popup at you.
 - ~~Enable Delete~~
-- Enable HTTPS
+- ~~Enable HTTPS~~ (can put behind an https proxy)
