@@ -28,7 +28,7 @@ class Heartbeat(object):
         # now hit s3creds with your access token
         headers = {'Authorization': "Bearer %s" % access_token, "Content-Type": "application/json" }
         r = requests.get(S3CREDS_URL+'?duration=37000', headers=headers)
-        
+
         cookie = cherrypy.response.cookie
         cookie['bucket'] = r.json()['bucket']
         cookie['bucket']['path'] = '/'
@@ -65,7 +65,7 @@ class Heartbeat(object):
         cookie['S3_session_token']['max-age'] = 36000
         cookie['S3_session_token']['version'] = 1
 
-        raise cherrypy.HTTPRedirect("/", 302)
+        raise cherrypy.HTTPRedirect(cherrypy.url().rsplit('/',2)[0] + '/', 302)
 
 
     
