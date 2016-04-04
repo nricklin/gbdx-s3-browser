@@ -1,6 +1,7 @@
 <html>
 <head>
 	    <link rel="stylesheet" href="./bootstrap.min.css">
+			<script src="./jquery.min.js"></script>
 
 	<style>
 	.white{
@@ -53,22 +54,47 @@
 			 	</div>
 			  	<div class="panel-body">
 			    	<form  method="POST" action="./api/login" accept-charset="UTF-8" role="form">
-                    <fieldset>
+							<fieldset>
+
 			    	  	<div class="form-group">
 			    		    <input class="form-control" placeholder="gbdx username" name="username" type="text">
-			    		</div>
-			    		<div class="form-group">
-			    			<input class="form-control" placeholder="gbdx password" name="password" type="password" value="">
-			    		</div>
-			    		
-			    		<input class="btn btn-lg btn-success btn-block" type="submit" value="Login">
-			    	</fieldset>
-			      	</form>
+								</div>
+								<div class="form-group">
+									<input class="form-control" placeholder="gbdx password" name="password" type="password" value="">
+								</div>
+
+								<input type="hidden" name="subprefix" />
+
+								<input class="btn btn-lg btn-success btn-block" type="submit" value="Login">
+			    		</fieldset>
+						</form>
                     
 			    </div>
 			</div>
 		</div>
 	</div>
 </div>
+
+	<script type="text/javascript">
+		var getUrlParameter = function getUrlParameter(sParam) {
+			var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+					sURLVariables = sPageURL.split('&'),
+					sParameterName,
+					i;
+
+			for (i = 0; i < sURLVariables.length; i++) {
+				sParameterName = sURLVariables[i].split('=');
+
+				if (sParameterName[0] === sParam) {
+					return sParameterName[1] === undefined ? true : sParameterName[1];
+				}
+			}
+		};
+
+		var prefix = getUrlParameter('prefix');
+		if (prefix) {
+			$('input[name="subprefix"]').val(prefix);
+		}
+	</script>
 </body>
 </html>

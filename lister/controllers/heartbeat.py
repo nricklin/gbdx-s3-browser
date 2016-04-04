@@ -15,7 +15,7 @@ class Heartbeat(object):
     
     # POST /login
     #@cherrypy.tools.json_out()
-    def login(self, username, password):
+    def login(self, username, password, subprefix):
         # cherrypy.request.json
         # Get user token
         headers = {'Authorization': "Basic %s" % GBDX_API_KEY}
@@ -46,6 +46,12 @@ class Heartbeat(object):
         cookie['prefix']['path'] = '/'
         cookie['prefix']['max-age'] = 36000
         cookie['prefix']['version'] = 1
+
+        cookie = cherrypy.response.cookie
+        cookie['subprefix'] = subprefix
+        cookie['subprefix']['path'] = '/'
+        cookie['subprefix']['max-age'] = 36000
+        cookie['subprefix']['version'] = 1
 
         cookie = cherrypy.response.cookie
         cookie['S3_secret_key'] = r.json()['S3_secret_key']
