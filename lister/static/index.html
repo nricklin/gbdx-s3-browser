@@ -36,7 +36,7 @@
             return sParameterName[1] === undefined ? true : sParameterName[1];
         }
     }
-};
+  };
 
 function humanFileSize(bytes, si) {
     var thresh = si ? 1000 : 1024;
@@ -128,34 +128,37 @@ var getTableHtml = function getTableHtml(num, icon, name, href, size, sizesort, 
           </div>
         </div>
 
-
-    
-
 </div>
 
 
 
 
 <script type="text/javascript">
-$(function() {
-      $("#logoutbutton").click( function()
-           {
-             Cookies.remove('prefix');
-             Cookies.remove('bucket');
-             Cookies.remove('S3_access_key');
-             Cookies.remove('S3_secret_key');
-             Cookies.remove('S3_session_token');
-             Cookies.remove('username');
-             window.location.href = './login.html';
-           }
-      );
-});
-
+  $(function() {
+        $("#logoutbutton").click( function()
+             {
+               Cookies.remove('prefix');
+               Cookies.remove('subprefix');
+               Cookies.remove('bucket');
+               Cookies.remove('S3_access_key');
+               Cookies.remove('S3_secret_key');
+               Cookies.remove('S3_session_token');
+               Cookies.remove('username');
+               window.location.href = './login.html';
+             }
+        );
+  });
 
   var superprefix = Cookies.get('prefix') + '/';
   var bucketName = Cookies.get('bucket');
+
   var subprefix = getUrlParameter('prefix');
-  if (subprefix == undefined) { subprefix = '' };
+  if (subprefix == undefined && Cookies.get('subprefix')) {
+    subprefix = Cookies.get('subprefix');
+    Cookies.remove('subprefix');
+    window.history.pushState({}, "Index", './?prefix='+subprefix);
+  }
+  if (subprefix == undefined) { subprefix = ''; }
   var full_s3_path = 's3://'+bucketName+'/'+superprefix + subprefix;
 
   var bucket = new AWS.S3({params: {
@@ -177,7 +180,12 @@ $(function() {
     if (err) {
       document.getElementById('status').innerHTML =
         'Could not load objects from S3';
+
+      if(subprefix) {
+        window.location.href = './login.html?prefix=' + subprefix;
+      } else {
         window.location.href = './login.html';
+      }
     } else {
       //document.getElementById('status').innerHTML =
       //  'Listing S3 location: <b>'+full_s3_path + '</b><br>';
