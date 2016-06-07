@@ -21,13 +21,13 @@ class Heartbeat(object):
         headers = {'Authorization': "Basic %s" % GBDX_API_KEY}
         body = {"grant_type":'password', 'username': username, 'password': password}
 
-        r = requests.post(TOKEN_URL, headers=headers, data=body)
+        r = requests.post(TOKEN_URL, headers=headers, data=body, verify=false)
 
         access_token = r.json()['access_token']
 
         # now hit s3creds with your access token
         headers = {'Authorization': "Bearer %s" % access_token, "Content-Type": "application/json" }
-        r = requests.get(S3CREDS_URL+'?duration=37000', headers=headers)
+        r = requests.get(S3CREDS_URL+'?duration=37000', headers=headers, verify=false)
 
         cookie = cherrypy.response.cookie
         cookie['bucket'] = r.json()['bucket']
