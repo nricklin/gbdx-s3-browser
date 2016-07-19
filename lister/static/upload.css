@@ -20,3 +20,10 @@ input[readonly] {
   background-color: white !important;
   cursor: text !important;
 }
+
+
+.divider{
+    width:5px;
+    height:auto;
+    display:inline-block;
+}

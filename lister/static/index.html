@@ -72,7 +72,10 @@ var getTableHtml = function getTableHtml(num, icon, name, href, size, sizesort, 
 <div id="status"></div>
 <ul id="objects"></ul>
 
+
+
 <div class="table-responsive" style="padding: 100px;">
+
 	<ol class="breadcrumb" dir="ltr">
       <li><a href="?prefix="><i class="fa fa-home fa-lg fa-fw"></i> </a></li>
       <li id="breadcrumb">  </li>
@@ -81,10 +84,27 @@ var getTableHtml = function getTableHtml(num, icon, name, href, size, sizesort, 
         </a>
       <a id="logoutbutton" href="#" class="pull-right btn btn-xs btn-danger"><span class="fa fa-user"></span> Logout</a>
     </ol>
+
+
+        <div class="col-md-6">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title"></h3>
+
+            <a id="deleteselected" href="#" class="btn btn-primary btn-warning"><span class="fa fa-remove"></span> Delete Selected</a>
+            <a id="bulkdownloadselected" href="#" class="btn btn-primary btn-info"><span class="fa fa-cloud-download"></span> Download Selected</a>
+
+            </div>
+            
+          </div>
+        </div>
+
+
+
       <table id="bs-table" class="table table-hover" style="padding: 100px;">
         <thead>
           <tr>
-            <th><a id="deleteselected" href="#"><i class="fa fa-remove fa-lg fa-fw"></i></a></th>
+            <th><!--<a id="deleteselected" href="#"><i class="fa fa-remove fa-lg fa-fw"></i></a>--></th>
             <th class="text-right" data-sort="int">#</th>
             <th class="col-sm-6 text-left" data-sort="string">Name</th>
             <th class="col-sm-2 text-right" data-sort="int">Size</th>
