@@ -154,6 +154,31 @@ var getTableHtml = function getTableHtml(num, icon, name, href, size, sizesort, 
 
 
 <script type="text/javascript">
+
+$.fn.shiftSelectable = function() {
+    var lastChecked,
+        $boxes = this;
+
+    $boxes.click(function(evt) {
+        if(!lastChecked) {
+            lastChecked = this;
+            return;
+        }
+
+        if(evt.shiftKey) {
+            var start = $boxes.index(this),
+                end = $boxes.index(lastChecked);
+            $boxes.slice(Math.min(start, end), Math.max(start, end) + 1)
+                .attr('checked', lastChecked.checked)
+                .trigger('change');
+        }
+
+        lastChecked = this;
+    });
+};
+
+
+
   $(function() {
         $("#logoutbutton").click( function()
              {
@@ -252,7 +277,13 @@ var getTableHtml = function getTableHtml(num, icon, name, href, size, sizesort, 
         
       }
     }
+    $("table#bs-table").find('input[type="checkbox"]').shiftSelectable();
   });
+
+
+
+
+
 </script>
 
 <!--<script type="text/javascript" src="dropins.js" id="dropboxjs" data-app-key="nzeq1welehd2rug"></script>-->
